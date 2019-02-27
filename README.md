@@ -1,5 +1,7 @@
 GITHUB USERS
 ============
+[![CircleCI](https://circleci.com/gh/leonardnjura/github-users/tree/ch-circle-ci-integration-155738450.svg?style=svg)](https://circleci.com/gh/leonardnjura/github-users/tree/ch-circle-ci-integration-155738450)
+<a href="https://codeclimate.com/github/leonardnjura/github-users/maintainability"><img src="https://api.codeclimate.com/v1/badges/32c6b30fd10ca26e9ea1/maintainability" /></a>
 
 
 What?
