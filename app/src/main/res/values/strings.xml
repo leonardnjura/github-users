@@ -1,0 +1,4 @@
+<resources>
+    <string name="welcome_message">Hello Kenya!</string>
+    <string name="app_name">Github App</string>
+</resources>
