@@ -1,4 +1,7 @@
 <resources>
     <string name="welcome_message">Hello Kenya!</string>
+    <string name="user_list_message">Users in Kenya!</string>
     <string name="app_name">Github App</string>
+    <string name="username_placeholder">\@username</string>
+    <string name="avatar_placeholder">Avatar</string>
 </resources>
