@@ -9,9 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DetailActivity" android:parentActivityName=".MainActivity" android:label="@string/username_placeholder">
+        <activity android:name=".view.DetailActivity" android:parentActivityName=".view.MainActivity" android:label="@string/username_placeholder">
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
