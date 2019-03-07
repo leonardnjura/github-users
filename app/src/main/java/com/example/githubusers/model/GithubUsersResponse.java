@@ -10,12 +10,16 @@ public class GithubUsersResponse {
     @SerializedName("items")
     private List<GithubUsers> users;
 
+    //Constructor
+    public GithubUsersResponse(List<GithubUsers> users) {
+        this.users = users;
+    }
+
+    //Getter & Setters
     public List<GithubUsers> getUsers() {
         return users;
     }
-
-    //Constructor
-    public GithubUsersResponse(List<GithubUsers> users) {
+    public void setUsers(List<GithubUsers> users){
         this.users = users;
     }
 
