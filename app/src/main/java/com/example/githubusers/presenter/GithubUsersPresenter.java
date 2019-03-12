@@ -38,7 +38,7 @@ public class GithubUsersPresenter {
 
                         if (data != null && data.getUsers() != null) {
                             List<GithubUsers> githubUsers = data.getUsers();
-                            view.getGithubUsers(githubUsers);
+                            view.displayUsers(githubUsers);
                         }
                     }
 

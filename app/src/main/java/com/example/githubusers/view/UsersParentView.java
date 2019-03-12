@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface UsersParentView {
 
-    void getGithubUsers(List<GithubUsers> usersList);
+    void displayUsers(List<GithubUsers> usersList);
 }

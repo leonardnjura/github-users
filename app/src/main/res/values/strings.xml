@@ -1,5 +1,4 @@
 <resources>
-    <string name="user_list_message">Users in Kenya!</string>
     <string name="app_name">Github App</string>
     <string name="username_placeholder">\@pendo_elizabeth</string>
     <string name="avatar_placeholder">Avatar</string>
@@ -11,4 +10,5 @@
     <string name="title_names">Names:</string>
     <string name="title_repos">Public Repos:</string>
     <string name="title_bio">Bio:</string>
+    <string name="at_sign_username">\@%1$s</string>
 </resources>
