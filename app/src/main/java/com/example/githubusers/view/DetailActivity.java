@@ -16,10 +16,11 @@ public class DetailActivity extends AppCompatActivity {
 
         //Get the caller intent
         Intent intent = getIntent();
-        String extra_username = intent.getStringExtra("EXTRA_USERNAME");
+        String extraUsername = intent.getStringExtra("EXTRA_USERNAME");
 
         //Set title bar text
-        getSupportActionBar().setTitle(extra_username);
+        String atSignUsername = this.getResources().getString(R.string.at_sign_username, extraUsername);
+        getSupportActionBar().setTitle(atSignUsername);
 
         TextView tvUserName = findViewById(R.id.tvUserName);
         TextView tvFirstName = findViewById(R.id.tvFirstName);
@@ -27,7 +28,7 @@ public class DetailActivity extends AppCompatActivity {
         TextView tvRepos = findViewById(R.id.tvRepos);
         TextView tvBio = findViewById(R.id.tvBio);
 
-        tvUserName.setText(extra_username);
+        tvUserName.setText(atSignUsername);
         tvFirstName.setText("");
         tvLastName.setText("");
         tvRepos.setText("");
