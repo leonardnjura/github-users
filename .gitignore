@@ -70,6 +70,7 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
+fastlane/.env
 
 # Version control
 vcs.xml
