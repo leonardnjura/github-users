@@ -39,7 +39,7 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.UserViewHo
 
         // Set item views based on respective model
         final String actualUserName = user.getUserName();
-        String atSignUsername = context.getResources().getString(R.string.at_sign_username, actualUserName);
+        final String atSignUsername = context.getResources().getString(R.string.at_sign_username, actualUserName);
 
         holder.userName.setText(atSignUsername);
 
@@ -54,7 +54,7 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.UserViewHo
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(context, "You clicked "+actualUserName, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Viewing profile for "+atSignUsername, Toast.LENGTH_SHORT).show();
                 Intent viewDetailsIntent = new Intent(context, DetailActivity.class);
                 viewDetailsIntent.putExtra("EXTRA_USERNAME", actualUserName);
                 context.startActivity(viewDetailsIntent);
