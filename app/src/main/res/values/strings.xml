@@ -1,14 +1,19 @@
 <resources>
     <string name="app_name">Github App</string>
-    <string name="username_placeholder">\@pendo_elizabeth</string>
+    <string name="username_placeholder"> </string>
     <string name="avatar_placeholder">Avatar</string>
-    <string name="first_name_placeholder">Pendo</string>
-    <string name="last_name_placeholder">Elizabeth</string>
-    <string name="repos_placeholder">9</string>
-    <string name="bio_placeholder">When not coding I like trekking and going on vacation in Havana, a city in Cuba</string>
+    <string name="name_placeholder">None</string>
+    <string name="repos_placeholder">0</string>
+    <string name="bio_placeholder">None</string>
     <string name="title_username">Username:</string>
-    <string name="title_names">Names:</string>
+    <string name="title_name">Name:</string>
     <string name="title_repos">Public Repos:</string>
     <string name="title_bio">Bio:</string>
+    <string name="title_company">Company:</string>
+    <string name="title_following">Following</string>
+    <string name="title_followers">Followers</string>
     <string name="at_sign_username">\@%1$s</string>
+    <string name="company_placeholder">None</string>
+    <string name="following_placeholder">0</string>
+    <string name="followers_placeholder">0</string>
 </resources>
