@@ -5,7 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.githubusers.R;
 import com.example.githubusers.adapter.GithubAdapter;
@@ -36,6 +40,11 @@ public class MainActivity extends AppCompatActivity implements UsersParentView {
         mRecyclerView = findViewById(R.id.rvUsers);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
+
+        // Set custom toolbar as default action bar
+        Toolbar toolbar = findViewById(R.id.tbCustom);
+        setSupportActionBar(toolbar);
+
 
         if (savedInstanceState != null) {
             this.ghUsers = savedInstanceState.getParcelableArrayList(USERS_KEY);
@@ -90,4 +99,47 @@ public class MainActivity extends AppCompatActivity implements UsersParentView {
         mRecyclerView.setAdapter(adapter);
     }
 
+    // TOOLBAR MENU
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate toolbar menu
+        getMenuInflater().inflate(R.menu.main_toolbar_menu, menu);
+
+        // Handle search menu item expand/collapse
+        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                Toast.makeText(MainActivity.this, "Search item action view expanded", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                Toast.makeText(MainActivity.this, "Search item action view collapsed", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        };
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchItem.setOnActionExpandListener(onActionExpandListener);
+
+
+        return true;
+    }
+
+    // Handle all menu items
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.action_search:
+                Toast.makeText(this, "Search option selected..", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_settings:
+                Toast.makeText(this, "Settings option selected..", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

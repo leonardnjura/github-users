@@ -1,9 +1,13 @@
 package com.example.githubusers.view;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +25,8 @@ public class DetailActivity extends AppCompatActivity implements UserDetailParen
     private static final String TAG = "DetailActivity";
     public static String USER_INFO_KEY = "userData";
     public UserProfile ghUserInfo;
+    public String userName;
+    public ProgressDialog progressDialog;
 
     private final GithubService service = new GithubService();
 
@@ -29,31 +35,56 @@ public class DetailActivity extends AppCompatActivity implements UserDetailParen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        // Set custom toolbar as default action bar
+        Toolbar toolbar = findViewById(R.id.tbCustom);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Intent incomingIntent = getIntent();
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
+
+
+
         if (savedInstanceState != null) {
             this.ghUserInfo = savedInstanceState.getParcelable(USER_INFO_KEY);
-            this.displayUserProfile(this.ghUserInfo);
-        } else {
-            // Caller Intent
-            Intent incomingIntent = getIntent();
-            if (incomingIntent.hasExtra("EXTRA_USERNAME")) {
-                String userName = incomingIntent.getStringExtra("EXTRA_USERNAME");
-
-                UserProfilePresenter profilePresenter = new UserProfilePresenter(this, service);
-                profilePresenter.getUserProfile(userName);
-                Log.i(TAG, "USERNAME:: " +userName);
-
-                // Set title bar text
-                String atSignUsername = this.getResources().getString(R.string.at_sign_username, userName);
-                getSupportActionBar().setTitle(atSignUsername);
-
+            if (this.ghUserInfo != null) {
+                this.displayUserProfile(this.ghUserInfo);
             } else {
-                Toast toast = Toast.makeText(getApplicationContext(), "Invalid username, Please try again", Toast.LENGTH_LONG);
-                toast.show();
+                fetchData(incomingIntent);
             }
+        } else {
+            fetchData(incomingIntent);
         }
+
+
         Log.i(TAG, "ON-CREATE[LIFECYCLE] INVOKED");
 
     }
+
+
+    private void fetchData(Intent newIntent) {
+        // HANDLING INCOMING INTENT
+        if (newIntent.hasExtra("EXTRA_USERNAME")) {
+            String userName = newIntent.getStringExtra("EXTRA_USERNAME");
+
+            UserProfilePresenter profilePresenter = new UserProfilePresenter(this, service);
+            profilePresenter.getUserProfile(userName);
+            Log.i(TAG, "USERNAME:: " +userName);
+
+            // Set title bar text
+            String atSignUsername = this.getResources().getString(R.string.at_sign_username, userName);
+            getSupportActionBar().setTitle(atSignUsername);
+
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), "Invalid username, Please try again", Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -65,7 +96,10 @@ public class DetailActivity extends AppCompatActivity implements UserDetailParen
 
     @Override
     public void displayUserProfile(UserProfile userProfile) {
-        ghUserInfo = userProfile;
+        progressDialog.dismiss();
+
+        this.ghUserInfo = userProfile;
+        this.userName = userProfile.getUserName();
 
         ImageView userImageElement = findViewById(R.id.ivUserAvatar);
         TextView userNameElement = findViewById(R.id.tvUserName);
@@ -104,5 +138,38 @@ public class DetailActivity extends AppCompatActivity implements UserDetailParen
             companyElement.setText(userProfile.getCompany());
         }
 
+    }
+
+    // TOOLBAR MENU
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate toolbar menu
+        getMenuInflater().inflate(R.menu.detail_toolbar_menu, menu);
+        return true;
+    }
+
+    // Handle all menu items [switch]
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.action_share) {
+            Toast.makeText(this, "Share option selected..", Toast.LENGTH_SHORT).show();
+            if (this.userName != null) {
+                String text = "Checkout this awesome developer @" + this.userName + "\nhttps://github.com/" + this.userName;
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, text);
+                startActivity(Intent.createChooser(intent, "Share via"));
+            } else {
+                Toast.makeText(this, "Shareable user data not found", Toast.LENGTH_SHORT).show();
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void handleError() {
+        progressDialog.dismiss();
+        Toast.makeText(this, "Something went wrong.. Please try again", Toast.LENGTH_SHORT).show();
     }
 }

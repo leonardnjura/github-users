@@ -16,4 +16,8 @@
     <string name="company_placeholder">None</string>
     <string name="following_placeholder">0</string>
     <string name="followers_placeholder">0</string>
+    <!--menu-->
+    <string name="share">Share</string>
+    <string name="search">Search</string>
+    <string name="settings">Settings</string>
 </resources>
