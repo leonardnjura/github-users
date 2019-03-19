@@ -18,7 +18,7 @@ default_platform(:android)
 platform :android do
   
   before_all do
-    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+    ENV["SLACK_URL"] = ENV["WEBHOOK"]
   end
 
   desc "Deploy a new version to the Google Play"
