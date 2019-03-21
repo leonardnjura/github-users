@@ -19,5 +19,6 @@
     <!--menu-->
     <string name="share">Share</string>
     <string name="search">Search</string>
+    <string name="refresh">Refresh</string>
     <string name="settings">Settings</string>
 </resources>

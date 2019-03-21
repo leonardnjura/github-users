@@ -7,9 +7,8 @@
     android:background="@drawable/sharp_rect_fill_toolbar"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    app:layout_collapseMode="pin"
     android:id="@+id/tbCustom"
     >
 
 </android.support.v7.widget.Toolbar>
-
-    <!--android:background="@color/colorPrimary"-->
