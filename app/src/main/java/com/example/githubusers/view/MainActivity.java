@@ -1,9 +1,11 @@
 package com.example.githubusers.view;
 
+import android.app.ProgressDialog;
 import android.os.Parcelable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,15 +22,18 @@ import com.example.githubusers.service.GithubService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements UsersParentView {
+public class MainActivity extends AppCompatActivity implements UsersParentView, SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = "MainActivity";
     private RecyclerView mRecyclerView;
     public static final String USERS_KEY = "users";
     public static final String RECYCLER_VIEW_KEY = "viewKey";
     public List<GithubUsers> ghUsers;
-    RecyclerView.LayoutManager mLayoutManager;
+    GridLayoutManager mLayoutManager;
     Parcelable recyclerViewParcelable;
+    GithubUsersPresenter usersPresenter;
+    SwipeRefreshLayout swipeRefreshLayout;
+    ProgressDialog progressDialog;
 
     private final GithubService service = new GithubService();
 
@@ -39,7 +44,19 @@ public class MainActivity extends AppCompatActivity implements UsersParentView {
         setContentView(R.layout.activity_main);
         mRecyclerView = findViewById(R.id.rvUsers);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager = new GridLayoutManager(this, 2);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeResources(
+                R.color.colorPrimaryDark,
+                R.color.colorPrimary,
+                R.color.colorAccent
+        );
 
         // Set custom toolbar as default action bar
         Toolbar toolbar = findViewById(R.id.tbCustom);
@@ -51,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements UsersParentView {
             this.displayUsers(ghUsers);
         } else  {
             // PRESENTER
-            GithubUsersPresenter usersPresenter = new GithubUsersPresenter(this, service);
+            usersPresenter = new GithubUsersPresenter(this, service);
             usersPresenter.fetchUsers();
         }
 
@@ -91,8 +108,11 @@ public class MainActivity extends AppCompatActivity implements UsersParentView {
 
     @Override
     public void displayUsers(List<GithubUsers> githubUsersList) {
+        progressDialog.dismiss();
+        swipeRefreshLayout.setRefreshing(false);
         ghUsers = githubUsersList;
         GithubAdapter adapter = new GithubAdapter(githubUsersList, this);
+
         // Set layout manager
         mRecyclerView.setLayoutManager(mLayoutManager);
         // Attach adapter
@@ -138,8 +158,19 @@ public class MainActivity extends AppCompatActivity implements UsersParentView {
             case R.id.action_settings:
                 Toast.makeText(this, "Settings option selected..", Toast.LENGTH_SHORT).show();
                 return true;
+            case R.id.action_refresh:
+                Toast.makeText(this, "Refresh option selected..", Toast.LENGTH_SHORT).show();
+                swipeRefreshLayout.setRefreshing(true);
+                usersPresenter.fetchUsers();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        //RE-FETCH USERS
+        usersPresenter.fetchUsers();
     }
 }
