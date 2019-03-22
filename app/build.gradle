@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'jacoco'
 
 apply from: "$project.rootDir/tools/git-hooks.gradle"
 apply from: "$project.rootDir/tools/checkstyle.gradle"
@@ -6,7 +7,19 @@ apply from: "$project.rootDir/tools/findbugs.gradle"
 apply from: "$project.rootDir/tools/pmd.gradle"
 apply from: "$project.rootDir/tools/lint.gradle"
 
+apply from: "$project.rootDir/tools/jacoco-test-cov.gradle"
+
 check.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
+
+android.testOptions {
+
+    unitTests.all {
+
+        jacoco {
+            includeNoLocationClasses = false
+        }
+    }
+}
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -23,6 +36,22 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            testCoverageEnabled true
+        }
+    }
+
+    testOptions {
+        execution 'ANDROID_TEST_ORCHESTRATOR'
+        animationsDisabled true
+
+        unitTests {
+            includeAndroidResources = false
+            returnDefaultValues = true
+        }
+
+
     }
 }
 
@@ -35,8 +64,12 @@ dependencies {
 
     // tests
     testImplementation "junit:junit:$rootProject.junitVersion"
-    androidTestImplementation "com.android.support.test:runner:$rootProject.testRunnerVerions"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVerion"
+    androidTestImplementation "com.android.support.test:runner:$rootProject.testRunnerVersion"
+    androidTestImplementation "com.android.support.test:rules:$rootProject.testRuleVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$rootProject.espressoVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espressoVersion"
+    androidTestUtil 'com.android.support.test:orchestrator:1.0.2'
 
     //views
     implementation "com.android.support:cardview-v7:$rootProject.cardViewVersion"
