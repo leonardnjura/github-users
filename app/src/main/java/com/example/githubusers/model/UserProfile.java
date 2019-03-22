@@ -44,6 +44,7 @@ public class UserProfile implements Parcelable {
         }
     };
 
+    //Constructors
     public UserProfile(Parcel in) {
         this.userName = in.readString();
         this.avatarUrl = in.readString();
@@ -56,6 +57,7 @@ public class UserProfile implements Parcelable {
         this.bio = in.readString();
     }
 
+    public UserProfile(){}
 
     public UserProfile(String userName, String avatarUrl, String profileUrl, String name, String followers, String following, String company, String publicRepos, String bio) {
         this.userName = userName;
