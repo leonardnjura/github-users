@@ -6,7 +6,6 @@ apply from: "$project.rootDir/tools/checkstyle.gradle"
 apply from: "$project.rootDir/tools/findbugs.gradle"
 apply from: "$project.rootDir/tools/pmd.gradle"
 apply from: "$project.rootDir/tools/lint.gradle"
-
 apply from: "$project.rootDir/tools/jacoco-test-cov.gradle"
 
 check.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
@@ -14,7 +13,6 @@ check.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
 android.testOptions {
 
     unitTests.all {
-
         jacoco {
             includeNoLocationClasses = false
         }
@@ -22,7 +20,7 @@ android.testOptions {
 }
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.githubusers"
         minSdkVersion rootProject.minSdkVersion
@@ -44,14 +42,12 @@ android {
 
     testOptions {
         execution 'ANDROID_TEST_ORCHESTRATOR'
-        animationsDisabled true
+        animationsDisabled false
 
         unitTests {
             includeAndroidResources = false
             returnDefaultValues = true
         }
-
-
     }
 }
 
@@ -69,7 +65,7 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$rootProject.espressoVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espressoVersion"
-    androidTestUtil 'com.android.support.test:orchestrator:1.0.2'
+    androidTestUtil "com.android.support.test:orchestrator:$orchestratorVersion"
 
     //views
     implementation "com.android.support:cardview-v7:$rootProject.cardViewVersion"

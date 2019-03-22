@@ -2,6 +2,7 @@ package com.example.githubusers.view;
 
 import android.app.ProgressDialog;
 import android.os.Parcelable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.githubusers.R;
@@ -18,6 +20,7 @@ import com.example.githubusers.adapter.GithubAdapter;
 import com.example.githubusers.model.GithubUsers;
 import com.example.githubusers.presenter.GithubUsersPresenter;
 import com.example.githubusers.service.GithubService;
+import com.example.githubusers.utils.NetworkUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +48,11 @@ public class MainActivity extends AppCompatActivity implements UsersParentView, 
         mRecyclerView = findViewById(R.id.rvUsers);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new GridLayoutManager(this, 2);
+        usersPresenter = new GithubUsersPresenter(this, service);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading...");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
@@ -68,8 +73,7 @@ public class MainActivity extends AppCompatActivity implements UsersParentView, 
             this.displayUsers(ghUsers);
         } else  {
             // PRESENTER
-            usersPresenter = new GithubUsersPresenter(this, service);
-            usersPresenter.fetchUsers();
+            loadUsers();
         }
 
         Log.i(TAG, "ON-CREATE[LIFECYCLE] INVOKED");
@@ -159,7 +163,6 @@ public class MainActivity extends AppCompatActivity implements UsersParentView, 
                 Toast.makeText(this, "Settings option selected..", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_refresh:
-                Toast.makeText(this, "Refresh option selected..", Toast.LENGTH_SHORT).show();
                 swipeRefreshLayout.setRefreshing(true);
                 usersPresenter.fetchUsers();
                 return true;
@@ -171,6 +174,32 @@ public class MainActivity extends AppCompatActivity implements UsersParentView, 
     @Override
     public void onRefresh() {
         //RE-FETCH USERS
-        usersPresenter.fetchUsers();
+        loadUsers();
     }
+
+
+    public class clickToRefresh implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            onRefresh();
+        }
+    }
+
+    public void loadUsers() {
+        if (NetworkUtility.isConnected(this)) {
+            usersPresenter.fetchUsers();
+        } else {
+            swipeRefreshLayout.setRefreshing(false);
+            progressDialog.dismiss();
+            showSnackBar();
+        }
+    }
+
+    public void showSnackBar() {
+        Snackbar networkSnackBar = Snackbar.make(findViewById(R.id.main_view), R.string.network_failure_message, Snackbar.LENGTH_LONG);
+        networkSnackBar.setAction(R.string.try_again, new clickToRefresh());
+        networkSnackBar.show();
+    }
+
 }

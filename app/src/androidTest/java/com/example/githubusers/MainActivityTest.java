@@ -1,18 +1,14 @@
 package com.example.githubusers;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.NoMatchingViewException;
-import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-
 
 import com.example.githubusers.view.MainActivity;
 
@@ -22,17 +18,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.support.test.espresso.contrib.RecyclerViewActions;
-import android.view.View;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static org.hamcrest.CoreMatchers.is;
 
 
 @RunWith(AndroidJUnit4.class)
@@ -57,6 +50,7 @@ public class MainActivityTest {
     public void testLaunchMainActivity() {
         onView(withId(R.id.main_view))
             .check(matches(isDisplayed()));
+        sleep(5000);
     }
 
     @Test
@@ -65,6 +59,7 @@ public class MainActivityTest {
             .check(matches(isDisplayed()));
         onView(ViewMatchers.withText(appName))
             .check(matches(ViewMatchers.withParent(withId(R.id.tbCustom))));
+        sleep(3000);
     }
 
     @Test
@@ -75,6 +70,7 @@ public class MainActivityTest {
             openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
             onView(ViewMatchers.withText(R.string.refresh)).perform(click());
         }
+        sleep(3000);
     }
 
     @Test
@@ -82,20 +78,22 @@ public class MainActivityTest {
         onView(withId(R.id.rvUsers));
         onView(withId(R.id.swipe_refresh))
             .check(matches(isDisplayed()));
+        sleep(3000);
     }
 
     @Test
     public void testConfigurationChangeSaveAndRestore() {
         rule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        sleep(5000);
+        sleep(3000);
         rule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
+        sleep(3000);
     }
 
     @Test
     public void testSwipeToRefresh() {
         onView(withId(R.id.main_view))
         .perform(ViewActions.swipeDown());
-        sleep(5000);
+        sleep(3000);
     }
 
     @Test
@@ -103,12 +101,14 @@ public class MainActivityTest {
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(ViewMatchers.withText("Refresh"))
             .perform(click());
+        sleep(3000);
     }
 
     @Test
     public void testLaunchDetailActivityOnItemClick() {
         onView(withId(R.id.rvUsers)).perform(RecyclerViewActions.scrollToPosition(20));
         onView(withId(R.id.rvUsers)).perform(RecyclerViewActions.actionOnItemAtPosition(20, click()));
+        sleep(3000);
     }
 
     // Helpers
@@ -125,6 +125,4 @@ public class MainActivityTest {
         }
     }
 
-
 }
-

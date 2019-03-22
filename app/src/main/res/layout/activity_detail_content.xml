@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/title_following"
+                    android:text="@string/label_following"
                     android:textColor="@color/grayFeather"
                     android:textSize="18sp"/>
                 <TextView
@@ -66,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/title_followers"
+                    android:text="@string/label_followers"
                     android:textColor="@color/grayFeather"
                     android:textSize="18sp"/>
                 <TextView
@@ -99,11 +99,11 @@
                 android:paddingBottom="10dp">
 
                 <TextView
-                    android:id="@+id/name_field"
+                    android:id="@+id/tvNameLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/title_name"
+                    android:text="@string/label_name"
                     android:textColor="#000"
                     android:textSize="16sp"
                     android:visibility="visible"
@@ -126,7 +126,7 @@
 
 
             <LinearLayout
-                android:id="@+id/user_detail_item"
+                android:id="@+id/username_details"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
@@ -135,11 +135,11 @@
                 android:paddingBottom="10dp">
 
                 <TextView
-                    android:id="@+id/username_field"
+                    android:id="@+id/tvUserNameLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/title_username"
+                    android:text="@string/label_username"
                     android:textColor="#000"
                     android:textSize="16sp"
                     android:visibility="visible"
@@ -165,11 +165,12 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:baselineAligned="false"
+                android:id="@+id/company_details"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp">
 
                 <TextView
-                    android:id="@+id/org_field"
+                    android:id="@+id/tvCompanyLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -179,7 +180,7 @@
                     android:layout_gravity="start"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:text="@string/title_company" />
+                    android:text="@string/label_company" />
 
                 <TextView
                     android:id="@+id/tvCompany"
@@ -199,11 +200,12 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:baselineAligned="false"
+                android:id="@+id/repo_details"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp">
 
                 <TextView
-                    android:id="@+id/repo_field"
+                    android:id="@+id/tvReposLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -212,7 +214,7 @@
                     android:layout_gravity="start"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
-                    android:text="@string/title_repos" />
+                    android:text="@string/label_repos" />
 
                 <TextView
                     android:id="@+id/tvRepos"
@@ -232,12 +234,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:id="@+id/bio_details"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvBioLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/title_bio"
+                android:text="@string/label_bio"
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:gravity="center"
@@ -251,7 +255,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:textSize="16sp" />
-        </LinearLayout>
+        </LinearLayout><!-- BIO DATA -->
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

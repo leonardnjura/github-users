@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-
+@SuppressWarnings("PMD")
 public class UserProfile implements Parcelable {
     @SerializedName("login")
     private String userName;
@@ -57,7 +57,7 @@ public class UserProfile implements Parcelable {
         this.bio = in.readString();
     }
 
-    public UserProfile(){}
+    public UserProfile(){} //Pmd Complains
 
     public UserProfile(String userName, String avatarUrl, String profileUrl, String name, String followers, String following, String company, String publicRepos, String bio) {
         this.userName = userName;

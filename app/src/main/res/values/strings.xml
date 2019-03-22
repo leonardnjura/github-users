@@ -1,17 +1,17 @@
 <resources>
-    <string name="app_name">Github App</string>
+    <string name="app_name">GitUsers App</string>
     <string name="username_placeholder"> </string>
     <string name="avatar_placeholder">Avatar</string>
     <string name="name_placeholder">None</string>
     <string name="repos_placeholder">0</string>
     <string name="bio_placeholder">None</string>
-    <string name="title_username">Username:</string>
-    <string name="title_name">Name:</string>
-    <string name="title_repos">Public Repos:</string>
-    <string name="title_bio">Bio:</string>
-    <string name="title_company">Company:</string>
-    <string name="title_following">Following</string>
-    <string name="title_followers">Followers</string>
+    <string name="label_username">Username:</string>
+    <string name="label_name">Name:</string>
+    <string name="label_repos">Public Repos:</string>
+    <string name="label_bio">Bio:</string>
+    <string name="label_company">Company:</string>
+    <string name="label_following">Following</string>
+    <string name="label_followers">Followers</string>
     <string name="at_sign_username">\@%1$s</string>
     <string name="company_placeholder">None</string>
     <string name="following_placeholder">0</string>
@@ -21,4 +21,9 @@
     <string name="search">Search</string>
     <string name="refresh">Refresh</string>
     <string name="settings">Settings</string>
+    <!--network-->
+    <string name="network_failure_message">No Internet</string>
+    <string name="try_again">Try Again</string>
+
+
 </resources>
