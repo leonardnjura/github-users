@@ -4,16 +4,17 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-
+@SuppressWarnings("PMD")
 public class GithubUsersResponse {
 
     @SerializedName("items")
     private List<GithubUsers> users;
 
-    //Constructor
+    //Constructors
     public GithubUsersResponse(List<GithubUsers> users) {
         this.users = users;
     }
+    public GithubUsersResponse() {}
 
     //Getter & Setters
     public List<GithubUsers> getUsers() {
