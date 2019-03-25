@@ -12,13 +12,12 @@ What?
 
 How?
 ----
-> To test this app here on your local machine or device, follow these guidelines:
+> To set up this project on your local machine:
 
 * Download and install Android Studio
 * Clone this repo and open in above IDE
 * Build with Gradle
 * Run app in emulator device or actual connected device i.e. a physical Android phone or tablet
-
 
 
 UI Design
@@ -41,6 +40,25 @@ UI Design
 `Fig 1c. Mockup: Share view`
 
 <p>&nbsp;</p>
+
+
+> To run static analyses:
+
+* $ ./gradlew checkstyle
+* $ ./gradlew findbugs
+* $ ./gradlew pmd
+* $ ./gradlew lint
+* $ ./gradlew check - To run all the above
+
+<p>&nbsp;</p>
+
+> To run unit and instrumented tests, connect an emulator and do:
+
+* $ ./gradlew test
+* $ ./gradlew connectedAndroidTest
+
+<p>&nbsp;</p>
+
 
 Licence
 --------
