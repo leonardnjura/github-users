@@ -2,7 +2,7 @@ GITHUB USERS
 ============
 [![CircleCI](https://circleci.com/gh/leonardnjura/github-users/tree/develop.svg?style=svg)](https://circleci.com/gh/leonardnjura/github-users/tree/develop)
 <a href="https://codeclimate.com/github/leonardnjura/github-users/maintainability"><img src="https://api.codeclimate.com/v1/badges/32c6b30fd10ca26e9ea1/maintainability" /></a>
-
+[![codecov](https://codecov.io/gh/leonardnjura/github-users/branch/ft-network-utility-156187450/graph/badge.svg)](https://codecov.io/gh/leonardnjura/github-users)
 
 What?
 -----
