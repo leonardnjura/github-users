@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-
+@SuppressWarnings("PMD")
 public class GithubUsersResponse {
 
     @SerializedName("items")
